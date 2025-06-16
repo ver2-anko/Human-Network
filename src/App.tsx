@@ -3,7 +3,6 @@ import { Box, Grid, ThemeProvider, Toolbar } from '@mui/material'
 import { AppBar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button';
 import { Fragment } from 'react/jsx-runtime';
 import { AccountCircleRounded } from '@mui/icons-material';
 import {theme} from './assets/theme'

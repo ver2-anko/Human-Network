@@ -1,6 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Graph from 'graphology';
-import Sigma from 'sigma';
+import { useEffect, useState, type FC } from 'react';
+import { MultiDirectedGraph } from 'graphology';
+import { SigmaContainer, useLoadGraph, useRegisterEvents } from '@react-sigma/core';
+import { Paper, Grid, Box } from '@mui/material';
+import '@react-sigma/core/lib/style.css';
+import NodeInfoCard from './NodeInfoCard';
 
 interface NodeInfo {
   id: string;
@@ -8,62 +11,56 @@ interface NodeInfo {
   color: string;
 }
 
-const NetWork = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [selectedNode, setSelectedNode] = useState<NodeInfo | null>(null);
+const GraphLoader: FC<{ onNodeClick: (node: NodeInfo) => void }> = ({ onNodeClick }) => {
+  const loadGraph = useLoadGraph();
+  const registerEvents = useRegisterEvents();
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    // グラフ作成
-    const graph = new Graph();
+    const graph = new MultiDirectedGraph();
     graph.addNode("1", { label: "Node 1", x: 0, y: 0, size: 10, color: "blue" });
     graph.addNode("2", { label: "Node 2", x: 1, y: 1, size: 20, color: "red" });
     graph.addEdge("1", "2", { size: 5, color: "purple" });
 
-    const renderer = new Sigma(graph, containerRef.current);
+    loadGraph(graph);
 
-    // ノードクリック時のイベント
-    renderer.on("clickNode", ({ node }) => {
-      const attributes = graph.getNodeAttributes(node);
-      setSelectedNode({
-        id: node,
-        label: attributes.label,
-        color: attributes.color
-      });
+    registerEvents({
+      clickNode: ({ node }) => {
+        const attr = graph.getNodeAttributes(node);
+        onNodeClick({
+          id: node,
+          label: attr.label,
+          color: attr.color,
+        });
+      },
     });
+  }, [loadGraph, registerEvents]);
 
-    return () => renderer.kill();
-  }, []);
+  return null;
+};
+
+const NetWork: FC = () => {
+  const [selectedNode, setSelectedNode] = useState<NodeInfo | null>(null);
 
   return (
-    <div style={{ position: "relative" }}>
-      <div
-        ref={containerRef}
-        style={{ width: '600px', height: '400px', border: '1px solid #ccc' }}
-      />
+    <Box p={2}>
+      <Grid container spacing={3}>
+        {/* グラフ表示 */}
+        <Grid>
+          <Paper elevation={4} sx={{ width: 600, height: 400, borderRadius: 3, overflow: 'hidden' }}>
+            <SigmaContainer graph={MultiDirectedGraph} style={{ width: '100%', height: '100%' }}>
+              <GraphLoader onNodeClick={setSelectedNode} />
+            </SigmaContainer>
+          </Paper>
+        </Grid>
 
-      {/* ノードクリック後に表示するカード */}
-      {selectedNode && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 10,
-            right: 10,
-            backgroundColor: 'white',
-            border: '1px solid #ddd',
-            padding: '10px',
-            borderRadius: '8px',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>ノード情報</h3>
-          <p><strong>ID:</strong> {selectedNode.id}</p>
-          <p><strong>ラベル:</strong> {selectedNode.label}</p>
-          <p><strong>色:</strong> {selectedNode.color}</p>
-        </div>
-      )}
-    </div>
+        {/* ノード情報カード */}
+        {selectedNode && (
+          <Grid>
+            <NodeInfoCard node={selectedNode} onClose={() => setSelectedNode(null)} />
+          </Grid>
+        )}
+      </Grid>
+    </Box>
   );
 };
 

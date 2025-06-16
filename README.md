@@ -1,4 +1,4 @@
-# Human-Network
+  # Human-Network
 - Reactの勉強とネットワーク図のライブラリを選定
 
 # 環境
@@ -22,3 +22,17 @@
   - https://ja.vite.dev/
 - Library
   - https://www.sigmajs.org/
+  - https://sim51.github.io/react-sigma/
+    - 
+- Graphology
+  - https://graphology.github.io/
+# 備考
+- React,Graphologyの関係性
+
+| ライブラリ          | 主な役割      | グラフデータ構造       | 関係           |
+| -------------- | --------- | -------------- | ------------ |
+| **Graphology** | データの保持・操作 | グラフ構造そのもの      | Sigma.js が利用 |
+| **Sigma.js**   | グラフの可視化   | Graphology を使用 | 描画用に依存       |
+
+- `@react-sigma/core/lib/style.css`について
+  - Sigma.js の描画領域（Canvas など）や UI に必要な基本スタイルを定義しているため、インポートは必須。
