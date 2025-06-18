@@ -72,7 +72,15 @@ const App = () => {
             items={['工数見積', '進捗管理', 'ドキュメント作成']}
           />
         </Grid>
-        <Grid container sx={{ mt: 7 }} justifyContent={'center'}>
+        <Grid container sx={{ mt: 3 }} justifyContent="center">
+          <Grid>
+            <Button variant="contained" sx={{ mr:8, minWidth: 150, fontWeight: 'bold', fontFamily: 'Segoe UI Symbol', boxShadow: 3 }}>Create Team</Button>
+          </Grid>
+          <Grid>
+            <Button variant="contained" sx={{ minWidth: 150, fontWeight: 'bold', fontFamily: 'Segoe UI Symbol', boxShadow: 3 }}>Snap Shot</Button>
+          </Grid>
+        </Grid>
+        <Grid container sx={{ mt: 3 }} justifyContent={'center'}>
           <Grid>
             <NetWork></NetWork>
           </Grid>
