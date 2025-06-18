@@ -23,7 +23,6 @@
 - Library
   - https://www.sigmajs.org/
   - https://sim51.github.io/react-sigma/
-    - 
 - Graphology
   - https://graphology.github.io/
 # 備考
