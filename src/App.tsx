@@ -24,7 +24,7 @@ const App = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h5" component="div" sx={{ mr: 7 }} fontFamily={'Segoe UI Symbol'} color='#24140e'>
+              <Typography variant="h5" sx={{ mr: 7 }} fontFamily={'Segoe UI Symbol'} color='#24140e'>
                 人員調整システム
               </Typography>
               <Typography variant='h5' sx={{ mr: 7, borderBottom: '1px solid green', }} fontFamily={'Segoe UI Symbol'} color='#24140e'>

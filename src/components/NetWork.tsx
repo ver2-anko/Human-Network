@@ -44,7 +44,6 @@ const NetWork: FC = () => {
   return (
     <Box p={1}>
       <Grid container spacing={3}>
-        {/* グラフ表示 */}
         <Grid>
           <Paper elevation={4} sx={{ width: 600, height: 400, borderRadius: 3, overflow: 'hidden' }}>
             <SigmaContainer graph={MultiDirectedGraph} style={{ width: '100%', height: '100%' }}>
@@ -52,8 +51,6 @@ const NetWork: FC = () => {
             </SigmaContainer>
           </Paper>
         </Grid>
-
-        {/* ノード情報カード */}
         {selectedNode && (
           <Grid>
             <NodeInfoCard node={selectedNode} onClose={() => setSelectedNode(null)} />
