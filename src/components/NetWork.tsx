@@ -42,7 +42,7 @@ const NetWork: FC = () => {
   const [selectedNode, setSelectedNode] = useState<NodeInfo | null>(null);
 
   return (
-    <Box p={2}>
+    <Box p={1}>
       <Grid container spacing={3}>
         {/* グラフ表示 */}
         <Grid>
